@@ -110,6 +110,7 @@ export default function Component() {
       }
 
       toast({ description: "Added to Cart Successfully" });
+ window.location.reload()
     } catch (error) {
       console.error(error);
       toast({ description: "Failed to add to cart, please try again." });
