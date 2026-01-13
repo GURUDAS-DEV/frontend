@@ -22,11 +22,11 @@ const useCarousel = (length: number) => {
   const [current, setCurrent] = useState(0)
 
   const next = useCallback(() => {
-    setCurrent((current) => (current === length - 1 ? 0 : current + 1))
+    setCurrent((prev) => (prev === length - 1 ? 0 : prev + 1))
   }, [length])
 
   const prev = useCallback(() => {
-    setCurrent((current) => (current === 0 ? length - 1 : current - 1))
+    setCurrent((prev) => (prev === 0 ? length - 1 : prev - 1))
   }, [length])
 
   const goTo = useCallback((index: number) => {
@@ -38,42 +38,20 @@ const useCarousel = (length: number) => {
 
 export default function CertificatesSection() {
   const { current, next, prev, goTo } = useCarousel(certificates.length)
-  const [isAnimating, setIsAnimating] = useState(false)
-  const [autoplayDirection, setAutoplayDirection] = useState('forward')
 
-  useEffect(() => {
-    setIsAnimating(true)
-    const timer = setTimeout(() => setIsAnimating(false), 300)
-    return () => clearTimeout(timer)
-  }, [current])
-
-  // Auto carousel effect
+  // Authority-style autoplay (forward only, slow)
   useEffect(() => {
     const interval = setInterval(() => {
-      if (autoplayDirection === 'forward') {
-        if (current === certificates.length - 1) {
-          setAutoplayDirection('backward')
-          prev()
-        } else {
-          next()
-        }
-      } else {
-        if (current === 0) {
-          setAutoplayDirection('forward')
-          next()
-        } else {
-          prev()
-        }
-      }
-    }, 5000)
-    
+      next()
+    }, 6000)
+
     return () => clearInterval(interval)
-  }, [current, next, prev, autoplayDirection])
+  }, [next])
 
   return (
-    <section className="py-10 md:py-20 bg-gray-50">
+    <section className="py-12 md:py-24 bg-gray-50">
       <div className="container mx-auto max-w-[76rem] px-4">
-        {/* Header with decorative lines */}
+        {/* Header */}
         <div className="mb-8 flex items-center justify-center space-x-2">
           <div className="h-[2px] w-12 bg-[#5C1E1E]" />
           <h2 className="sub-title-2">OUR CERTIFICATES</h2>
@@ -82,64 +60,80 @@ export default function CertificatesSection() {
 
         {/* Main Title */}
         <div className="mb-16 text-center">
-          <h3 className="title"> 
-            Authorized Distributor 
+          <h3 className="title">
+            Authorized Distributor
             <br />
             Certificates
           </h3>
         </div>
 
-        {/* Carousel Section */}
-        <div className="relative mx-auto max-w-[56rem] px-4">
+        {/* Spotlight Container */}
+        <div className="relative mx-auto max-w-[60rem]">
           {/* Navigation Buttons */}
           <button
             onClick={prev}
-            className="absolute -left-4 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-[#5C1E1E] text-white transition-opacity hover:bg-[#4A1818] md:-left-12"
+            className="absolute -left-6 md:-left-16 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-[#5C1E1E] text-white hover:bg-[#4A1818] transition"
+            aria-label="Previous Certificate"
           >
             <ChevronLeft className="h-6 w-6" />
           </button>
 
           <button
             onClick={next}
-            className="absolute -right-4 top-1/2 z-10 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-[#5C1E1E] text-white transition-opacity hover:bg-[#4A1818] md:-right-12"
+            className="absolute -right-6 md:-right-16 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-[#5C1E1E] text-white hover:bg-[#4A1818] transition"
+            aria-label="Next Certificate"
           >
             <ChevronRight className="h-6 w-6" />
           </button>
 
-          {/* Carousel */}
-          <div className="overflow-visible">
-            <div
-              className={cn("flex transition-transform duration-300 ease-in-out", isAnimating && "pointer-events-none")}
-              style={{ transform: `translateX(-${current * 100}%)` }}
-            >
-              {certificates.map((certificate) => (
-                <div key={certificate.id} className="w-full flex-shrink-0 px-4">
-                  <div className="overflow-visible rounded-lg bg-white p-6 shadow-lg">
-                    <h4 className="title">{certificate.title}</h4>
-                    <div className="relative h-[300px] w-full">
+          {/* Certificate Spotlight */}
+          <div className="relative h-[420px] md:h-[520px]">
+            {certificates.map((certificate, index) => {
+              const isActive = current === index
+
+              return (
+                <div
+                  key={certificate.id}
+                  className={cn(
+                    "absolute inset-0 transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)]",
+                    isActive
+                      ? "opacity-100 scale-100 z-10"
+                      : "opacity-0 scale-95 z-0 pointer-events-none"
+                  )}
+                >
+                  <div className="h-full rounded-xl bg-white p-8 md:p-12 shadow-2xl flex flex-col">
+                    <h4 className="mb-6 text-center title">
+                      {certificate.title}
+                    </h4>
+
+                    <div className="relative flex-1 w-full">
                       <Image
-                        src={certificate.image || "/placeholder.svg"}
+                        src={certificate.image}
                         alt={certificate.title}
                         fill
+                        priority={isActive}
                         className="object-contain"
                       />
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
+              )
+            })}
           </div>
 
           {/* Dots */}
-          <div className="mt-8 flex justify-center gap-2">
+          <div className="mt-10 flex justify-center gap-3">
             {certificates.map((_, index) => (
               <button
                 key={index}
-                className={cn(
-                  "h-2 w-2 rounded-full transition-all",
-                  current === index ? "bg-[#5C1E1E] w-8" : "bg-gray-300",
-                )}
                 onClick={() => goTo(index)}
+                aria-label={`Go to certificate ${index + 1}`}
+                className={cn(
+                  "h-2 rounded-full transition-all",
+                  current === index
+                    ? "w-10 bg-[#5C1E1E]"
+                    : "w-2 bg-gray-300 hover:bg-gray-400"
+                )}
               />
             ))}
           </div>
