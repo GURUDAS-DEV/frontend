@@ -11,6 +11,7 @@ import SearchBar from "./search";
 
 const navItems = [
   { name: "HOME", href: "/" },
+  { name: "OUR CLIENTS", href: "/#our-clients"},
   { name: "ABOUT US", href: "/about-us" },
   { name: "PRODUCTS", href: "/products" },
   { name: "PRICELIST & BROCHURE", href: "/price-list" },
