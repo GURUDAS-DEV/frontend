@@ -13,6 +13,7 @@ import {
   Settings,
   User,
   Mails,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -84,6 +85,7 @@ export default function DashboardLayout({
             { icon: LayoutDashboard, label: "Dashboard", path: "/admin" },
             { icon: MessageSquare, label: "Enquiry", path: "/admin/enquiry" },
             { icon: Mails, label: "Contact", path: "/admin/contact" },
+            { icon: BarChart3, label: "ANALytics", path: "/admin/analytics" },
           ].map((item, index) => (
             <Button
               key={index}
