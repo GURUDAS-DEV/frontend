@@ -171,17 +171,18 @@ export default function ContactSection() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Map */}
-        <div className="lg:col-span-1 rounded-md overflow-visible h-full">
-          <div className="h-[400px] bg-gray-200 rounded-md relative">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.574975745773!2d88.35208735909036!3d22.574430510297205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277afeb317383%3A0x958583b1cdbfc4f6!2sSheth%20Trading%20Corporation!5e0!3m2!1sen!2sin!4v1740851333959!5m2!1sen!2sin"
-              width="800"
-              height="450"
-              style={{ border: "0" }}
-              loading="lazy"
-            ></iframe>
-          </div>
-        </div>
+       {/* Map */}
+<div className="lg:col-span-1">
+  <div className="w-full h-[260px] sm:h-[320px] md:h-[380px] lg:h-full rounded-md overflow-hidden relative">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3648.574975745773!2d88.35208735909036!3d22.574430510297205!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277afeb317383%3A0x958583b1cdbfc4f6!2sSheth%20Trading%20Corporation!5e0!3m2!1sen!2sin!4v1740851333959!5m2!1sen!2sin"
+      className="absolute top-0 left-0 w-full h-full border-0"
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+    />
+  </div>
+</div>
+
 
         {/* Contact Form */}
         <div className="bg-[#5C1E1E] rounded-md p-6 text-white">

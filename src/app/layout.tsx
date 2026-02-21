@@ -18,7 +18,7 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Sheth Trading",
+  title: "Sheth Trading Corporation",
   description: "Welcome to Sheth Trading Corporation",
 };
 

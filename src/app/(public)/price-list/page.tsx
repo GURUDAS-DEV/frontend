@@ -106,7 +106,7 @@ export default function Page() {
             <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center w-full max-w-[23rem]">
               <div className="relative w-full h-[28rem] mb-6">
                 <Image
-                  src="/dow_price/img1.png"
+                  src="/new_pricelist_img.png"
                   alt="3M Pricelist Cover"
                   fill
                   className="object-cover rounded-md"
@@ -116,7 +116,7 @@ export default function Page() {
               <h3 className="text-gray-800 text-xl font-medium mb-5">
                 Dowells Pricelist PDF
               </h3>
-              <a download href="/DOWELL'S PRICE LIST 2025.pdf">
+              <a download href="/DOWELL'S PRICE LIST 1st FEBRUARY 2026 (vertical pdf) (1).pdf">
                 <button className="bg-gradient-to-r from-[#5a1c0e] to-[#7a2b16] text-white text-sm font-medium py-2 px-6 rounded-full shadow-md hover:shadow-lg transition-all duration-300 uppercase">
                   Download Pricelist
                 </button>
